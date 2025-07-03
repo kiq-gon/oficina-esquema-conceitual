@@ -1,0 +1,68 @@
+Table Cliente {
+  id_cliente int [pk]
+  nome varchar
+  telefone varchar
+  endereco varchar
+}
+
+Table Veiculo {
+  id_veiculo int [pk]
+  placa varchar
+  modelo varchar
+  marca varchar
+  ano int
+  id_cliente int [ref: > Cliente.id_cliente]
+}
+
+Table Mecanico {
+  id_mecanico int [pk]
+  nome varchar
+  endereco varchar
+  especialidade varchar
+}
+
+Table Equipe {
+  id_equipe int [pk]
+  nome_da_equipe varchar
+}
+
+Table Equipe_Mecanico {
+  id_equipe int [ref: > Equipe.id_equipe]
+  id_mecanico int [ref: > Mecanico.id_mecanico]
+}
+
+Table Ordem_Servico {
+  id_os int [pk]
+  data_emissao date
+  valor_total decimal
+  status varchar
+  data_conclusao date
+  id_veiculo int [ref: > Veiculo.id_veiculo]
+  id_equipe int [ref: > Equipe.id_equipe]
+}
+
+Table Servico {
+  id_servico int [pk]
+  descricao varchar
+  valor_mao_de_obra decimal
+}
+
+Table OS_Servico {
+  id_os int [ref: > Ordem_Servico.id_os]
+  id_servico int [ref: > Servico.id_servico]
+  quantidade int
+  valor_unitario decimal
+}
+
+Table Peca {
+  id_peca int [pk]
+  descricao varchar
+  valor_unitario decimal
+}
+
+Table OS_Peca {
+  id_os int [ref: > Ordem_Servico.id_os]
+  id_peca int [ref: > Peca.id_peca]
+  quantidade int
+  valor_unitario decimal
+}
